@@ -122,7 +122,7 @@ def change_line_option():
 
 def crop_them_all():
     global _path, _list, _coor_ul_w, _coor_ul_h, _coor_dr_w, _coor_dr_h
-    global _line_color_string, _line_solid_dash, _line_thickness, _dash_length, _dash_interval 
+    global _line_color_tuple, _line_color_string, _line_solid_dash, _line_thickness, _dash_length, _dash_interval 
     
     _count = 0
     
@@ -151,8 +151,8 @@ def crop_them_all():
                 print("PIL saved!", _path + '/CROPPED/_C_' + i_file)
                 _count += 1
                 
-                tk_1_label_cropping       = tki.Label(tk_main, text=_blank, bg='white').grid(row=18, column=1)
-                tk_1_label_cropping       = tki.Label(tk_main, text="Cropping " + str(_count) + "..." , bg='white').grid(row=18, column=1)
+                #tk_1_label_cropping       = tki.Label(tk_main, text=_blank, bg='white').grid(row=18, column=1)
+                #tk_1_label_cropping       = tki.Label(tk_main, text="Cropping " + str(_count) + "..." , bg='white').grid(row=18, column=1)
                 
             except:
                 print("PIL save FAIL:", i_file)
@@ -161,8 +161,32 @@ def crop_them_all():
         tk_1_label_cropping       = tki.Label(tk_main, text=_blank, bg='white').grid(row=18, column=1)
         tk_1_label_cropping       = tki.Label(tk_main, text="Nothing Happened...", bg='white').grid(row=18, column=1)
     else:
+        if _line_solid_dash:
+            _str = "Dash ( _ _ _ )"
+        else:
+            _str = "Solid ( _____ )"
+        
+        write_txt(_path + "/CROPPED"
+                 ,""
+                 ,"--- [ Coor Info ] ---"
+                 ,"Up Left Width: "     + str(_coor_ul_w)
+                 ,"Up Right Height: "   + str(_coor_ul_h)
+                 ,"Down Left Width: "   + str(_coor_dr_w)
+                 ,"Down Right Height: " + str(_coor_dr_h)
+                 ,""
+                 ,"--- [ Line Info ] ---"
+                 ,"Line Color: (" + str(_line_color_tuple[0]) + ", " + str(_line_color_tuple[1]) + ", " + str(_line_color_tuple[2]) + "), " + str(_line_color_string)
+                 ,"Line Type: " + _str
+                 ,"Line Thickness: " + str(_line_thickness)
+                 ,"Dash Length: " + str(_dash_length)
+                 ,"Dash Interval: " + str(_dash_interval)
+                 )
+        
         tk_1_label_cropping       = tki.Label(tk_main, text=_blank, bg='white').grid(row=18, column=1)
         tk_1_label_cropping       = tki.Label(tk_main, text="Cropped " + str(_count) + " images!" , bg='white').grid(row=18, column=1)
+
+
+
 
 if __name__ == '__main__':
     #print("main")
@@ -184,13 +208,14 @@ if __name__ == '__main__':
     #-------
     
     tk_main = tki.Tk()
-    tk_main.title('Figure Cropper')
+    tk_main.iconbitmap("./resources/icon.ico")
+    tk_main.title('Cropper')
     tk_main.geometry("1100x500")
     tk_main.resizable(True, True)
     
     #<<< col: 0
     tk_0_label_entry_path     = tki.Label(tk_main, text=" Enter path ").grid(row=0, column=0)
-    tk_0_label_curr_path      = tki.Label(tk_main, text=" Currunt path ").grid(row=1, column=0)
+    tk_0_label_curr_path      = tki.Label(tk_main, text=" Current path ").grid(row=1, column=0)
     
     tk_0_label_void_1         = tki.Label(tk_main, text=" ").grid(row=2, column=0)
     tk_0_label_coor           = tki.Label(tk_main, text=" Crop Coor ").grid(row=3, column=0)

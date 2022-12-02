@@ -1,2 +1,8 @@
 v 1.0.0
 init
+
+v 1.0.1
+import 항목 정리
+icon 수정
+crop info 저장 txt 생성기능 추가
+how_to_use (설명서) 추가

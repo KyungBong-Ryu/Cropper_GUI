@@ -1,7 +1,6 @@
 import os
 import matplotlib.pyplot as plt
-from PIL import Image, ImageFilter, ImageDraw
-import cv2
+from PIL import Image, ImageDraw
 import numpy as np
 
 def load_file_list(in_path):
@@ -204,5 +203,37 @@ def draw_dash(**kargs):
     
     return in_pil
 
+#=== End of draw_dash
 
-#[(x+30, y), (x-10, y+h), (x+w-20, y+h+50), (x+w+40, y+47), (x+30, y)],
+
+
+
+
+def write_txt(path, *args):
+    
+    
+    try:
+        try:
+            # 기존 파일이 있는 경우, 내용 지우고 새로 씀
+            file_txt = open(path + "/" + "crop_info.txt", "w")
+        except:
+            # 기존 파일이 없는 경우, 파일 만들고 새로 씀
+            file_txt = open(path + "/" + "crop_info.txt", "x")
+    except:
+        file_txt = None
+    
+    if file_txt is not None:
+        file_txt.write("--- [ Cropper info ] ---")
+        file_txt.write("\n")
+        file_txt.write("Written by KyungBong-Ryu")
+        for i_str in args:
+            file_txt.write("\n")
+            file_txt.write(str(i_str))
+        
+        
+        
+        file_txt.close()
+    
+        print("crop_info.txt SAVED")
+    else:
+        print("crop_info.txt save FAIL")
